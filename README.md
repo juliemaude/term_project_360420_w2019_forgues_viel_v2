@@ -1,4 +1,6 @@
-# Term Project Sample Repository
+# Frisbeee Term Project
+
+## Julie and Dahomee
 
 Use this repository to structure your term project submission.
 
