@@ -1,6 +1,6 @@
-# Frisbeee Term Project
+# Frisbee Term Project
 
-## Julie and Dahomee
+## Julie-Maude and Dahomee
 
 Use this repository to structure your term project submission.
 
