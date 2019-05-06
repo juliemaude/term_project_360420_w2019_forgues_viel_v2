@@ -13,6 +13,7 @@ public class Frisbee
 	public static final double CDalpha=2.72;	//induced drag(varies with lift)
 	public static final double alpha0=-4.;		//angle of attack that produces the least lift(in degree)
 	public static final double Fg=-1.71675;		//force due to gravity corresponds to a mass of 0.175 kg and an acceleration due to gravity of 9.81 m/s^2
+	public static final double g=9.81;			//acceleration due to gravity (m/s^2)
 	
 	double vi=14.;								//initial velocity of average throw(m/s)
 	public static void main(String[] args)
@@ -26,7 +27,9 @@ public class Frisbee
 	
 	x[0]=0.;								//initial position of x in meter 
 
-	y[0]=1.;								//initial position of y in meter
+	y[0]=1.;								//initial position of y in meter
+	y[imax]=0.;								//final position of y in meter
+	
 
 
 	}
@@ -52,9 +55,12 @@ public class Frisbee
 		double anglerad= Math.toRadians(angle);
 		double vix = vi*Math.cos(anglerad);
 		double viy = vi*Math.sin(anglerad);
+		double deltay= y[imax] - y[0];
 		double t;
 		
-		t = (-
+		t = (-viy + Math.sqrt(Math.pow(viy,2)-4*(0.5*-g)*deltay))/ (2*deltay);
+		
+		if(t<0)
 	
 //salut
 	
