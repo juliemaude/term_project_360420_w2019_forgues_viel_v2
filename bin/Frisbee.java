@@ -15,6 +15,13 @@ public class Frisbee
 	public static final double Fg=-1.71675;		//force due to gravity corresponds to a mass of 0.175 kg and an acceleration due to gravity of 9.81 m/s^2
 	public static final double g=9.81;			//acceleration due to gravity (m/s^2)
 	
+	
+	double a=0;                                 //minimum angle of attack
+	double c=90; 	                            //maximum angle of attack
+	double b=0.38*(c-a);
+	/*double answer = goldenSearch(a,b,c); 
+	System.out.println(answer);*/
+		
 	double vi=14.;								//initial velocity of average throw(m/s)
 	public static void main(String[] args)
 	{	
@@ -53,8 +60,51 @@ public class Frisbee
 		
 		return forcedrag;
 	}
-	public static double goldenSearch()
+	public static double goldenSearch(double a,double b,double c)
 	{
+		while (Math.abs(a-c)>(2.*a* 1.11e-16))
+		{
+			 double ya= calculateDistance(a);
+			 double yb= calculateDistance(b);
+			 double yc= calculateDistance(c);
+			 double d;
+			
+			
+			if ((c-b) < (b-a))
+			{
+				 d = b- 0.38197*(b-a);
+				double yd= calculateDistance(d);
+				
+				if (yd<yb)
+				{
+				c=b;
+				b=d;
+				}
+				else
+				{
+                a=d;
+				}
+				System.out.println(b);
+            }
+			else 
+			{
+			d = b+ 0.38197*(c-b);
+			double yd= calculateDistance(d);
+        
+				if (yd<yb)
+				{
+				a = b;
+				b = d;
+				}
+				else
+				{
+                c = d;
+				}
+				System.out.println(b);
+			}
+			
+		}
+		return b;
 		
 	}
 	public static double calculateDistance(angle)
