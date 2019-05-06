@@ -25,12 +25,10 @@ public class Frisbee
 	double[] vy=new double[imax];				//velocity in the y-direction
 	
 	x[0]=0.;								//initial position of x in meter 
-<<<<<<< HEAD
+
 	y[0]=1.;								//initial position of y in meter
-=======
-	y[0]=1.;								//initial position of y in meter
->>>>>>> 1d6acf5efe082a0b5e757ced91a9a823f07af891
-	
+
+
 	}
 	public static double calculateLift(angle,vx)
 	{
