@@ -40,7 +40,7 @@ public class Frisbee
 
 
 	}
-	public static double calculateLift(angle,vx)
+	public static double calculateLift(double angle,double vx)
 	{
 		double clift;
 		double forcelift;
@@ -49,6 +49,7 @@ public class Frisbee
 		forcelift = 0.5*rho*Math.pow(vx,2)*area*clift;
 		
 		return forcelift;
+	
 	}
 	public static double calculateDrag(angle,vx)
 	{
@@ -107,7 +108,7 @@ public class Frisbee
 		return b;
 		
 	}
-	public static double calculateDistance(angle)
+	public static double calculateDistance(double angle)
 	{
 		double anglerad= Math.toRadians(angle);
 		double vix = vi*Math.cos(anglerad);
@@ -118,6 +119,12 @@ public class Frisbee
 		t = (-viy + Math.sqrt(Math.pow(viy,2)-4*(0.5*-g)*deltay))/ (2*deltay);
 		
 		if(t<0)
+		{	
+		t = (-viy - Math.sqrt(Math.pow(viy,2)-4*(0.5*-g)*deltay))/ (2*deltay);
+		}
+		
+		xf = vix * t;
 	
+	}
 
 	
