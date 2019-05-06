@@ -1,5 +1,6 @@
-importjava.lang.Math;
-importjava.io.*;
+import java.lang.Math;
+import java.io.*;
+import java.util.Locale;
 
 public class Frisbee
 {
@@ -20,12 +21,8 @@ public class Frisbee
 	double a=0;                                 //minimum angle of attack
 	double c=90; 	                            //maximum angle of attack
 	double b=0.38*(c-a);
-	/*double answer = goldenSearch(a,b,c); 
-	System.out.println(answer);*/
-		
-	double vi=14.;								//initial velocity of average throw(m/s)
-	public static void main(String[] args)
-	{	
+	
+	
 	int imax= (int)(Tmax/dt);					//Maximum index
 	
 	double[] x= new double[imax];				//x-position of the frisbee
@@ -40,31 +37,49 @@ public class Frisbee
 	y[imax]=0.;								//final position of y in meter
 	
 	
-	
+		
+	double vi=14.;								//initial velocity of average throw(m/s)
+	public static void main(String[] args)
+	{	
+		double answer = goldenSearch(a,b,c); 
+		System.out.println(answer);
 
 
 	}
-	public static double calculateLift(double angle,double vx)
+	public static double calculateCoefficientLift(double angle,double vx)
 	{
 		double clift;
-		double forcelift;
 		
 		clift = CL0 + CLalpha*angle;
+		
+		return clift;
+	
+	}
+	public static double calculateLiftForce(double clift, double vx)
+	{
+		double forcelift;
+		
 		forcelift = 0.5*rho*Math.pow(vx,2)*area*clift;
 		
 		return forcelift;
-	
 	}
-	public static double calculateDrag(angle,vx)
+	public static double calculateCoefficientDrag(double angle,double vx)
 	{
 		double cdrag;
-		double forcedrag;
 		
 		cdrag = CD0 + CDalpha*Math.pow((angle-alpha0),2);
+		
+		return cdrag;
+	}
+	public static double calculateDragForce(double cdrag, double vx)
+	{
+		double forcedrag;
+		
 		forcedrag = -0.5*cdrag*rho*area*Math.pow(vx,2);
 		
 		return forcedrag;
 	}
+		
 	public static double goldenSearch(double a,double b,double c)
 	{
 		while (Math.abs(a-c)>(2.*a* 1.11e-16))
@@ -115,30 +130,40 @@ public class Frisbee
 	public static double calculateDistance(double angle)
 	{
 		double anglerad= Math.toRadians(angle);
-		double vix[0] = vi*Math.cos(anglerad);
-		double viy[0] = vi*Math.sin(anglerad);
+		vx[0] = vi*Math.cos(anglerad);
+		vy[0] = vi*Math.sin(anglerad);
 		double deltay= y[imax] - y[0];
-		double t;
+		double[] i = new  double[imax];
+		double cdrag = calculateCoefficientDrag(angle, vx);
+		double clift = calculateCoefficientLift(angle,vx);
 		
 		double aix = calculateDrag(angle) / m;
 		double aiy = (calculateLift(angle)-calculateDrag(angle))/m;
 		
-		for( int i=1; i> y[imax] ; i--)
+		for(int i=1; y[i]> y[imax] ; i++)
 		{
-			y[i] = 
-			t = (-viy + Math.sqrt(Math.pow(viy,2)-4*(0.5*-g)*deltay))/ (2*deltay);
+			//calculate the first value with Euler's method
+			y[i] = y[i-1] + vy[i-1]*dt;
+			
+			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * cdrag * dt;
+			vy[i] = (g + (1/(2*m))*rho*Math.pow(vx[i-1],2)*area*clift)*dt;
+			
+			
+			t[i] = (-vy[i] + Math.sqrt(Math.pow(vy[i],2)-4*(0.5*-g)*deltay))/ (2*deltay);
 		
 			if(t<0)
 			{	
-			t = (-viy - Math.sqrt(Math.pow(viy,2)-4*(0.5*-g)*deltay))/ (2*deltay);
+			t[i] = (-vy[i] - Math.sqrt(Math.pow(vy[i],2)-4*(0.5*-g)*deltay))/ (2*deltay);
 			}
 		
 			//calculate the first value with Euler's method
 		
-			x[1] = x[0] + vix
+			x[i] = x[i-1] + vx[i-1];
+			double distance=x[i];
+		}
 		
-		
+		return distance;
 	
 	}
 
-	
+}	
