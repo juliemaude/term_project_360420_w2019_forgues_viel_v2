@@ -24,6 +24,7 @@ public class Frisbee
 	
 	x[0]=0.;								//initial position of x in meter 
 	y[0]=1.;								//initial position of y in meter
+	//salut
 	
 	
 	
