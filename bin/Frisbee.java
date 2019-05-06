@@ -72,7 +72,7 @@ public class Frisbee
 			 double ya= calculateDistance(a);
 			 double yb= calculateDistance(b);
 			 double yc= calculateDistance(c);
-			 double d;
+			 double d; 
 			
 			
 			if ((c-b) < (b-a))
