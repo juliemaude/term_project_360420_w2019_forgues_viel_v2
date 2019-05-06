@@ -21,10 +21,28 @@ public class Frisbee
 	
 	double[] x= new double[imax];				//x-position of the frisbee
 	double[] y= new double[imax];				//y-position of the frisbee
+	double[] vx= new double[imax];				//velocity in the x-direction
+	double[] vy=new double[imax];				//velocity in the y-direction
 	
 	x[0]=0.;								//initial position of x in meter 
 	y[0]=1.;								//initial position of y in meter
+	vx[0]=0.;
+	vy[0]=0.;
 	
+	}
+	public static double calculateLift(angle,vx)
+	{
+		double clift;
+		double forcelift;
+		
+		clift = CL0 + CLalpha*angle;
+		forcelift = 0.5*rho*Math.pow(vx,2)*area*clift;
+		
+		return forcelift;
+	}
+	public static double calculateDrag()
+	{
+	}
 	
 	
 	
