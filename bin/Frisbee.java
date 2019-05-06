@@ -18,6 +18,7 @@ public class Frisbee
 	public static final double m=0.175; 		//mass of a frisbee (in kg)
 	
 	
+	
 	double a=0;                                 //minimum angle of attack
 	double c=90; 	                            //maximum angle of attack
 	double b=0.38*(c-a);
@@ -46,11 +47,16 @@ public class Frisbee
 
 
 	}
+<<<<<<< HEAD
 	public static double calculateCoefficientLift(double angle,double vx)
+=======
+	public static double calculateLift(double angle,double v)
+>>>>>>> c2c7a628ed83525cab71d89a6ffaba6db7c5709e
 	{
 		double clift;
 		
 		clift = CL0 + CLalpha*angle;
+<<<<<<< HEAD
 		
 		return clift;
 	
@@ -60,14 +66,22 @@ public class Frisbee
 		double forcelift;
 		
 		forcelift = 0.5*rho*Math.pow(vx,2)*area*clift;
+=======
+		forcelift = 0.5*rho*Math.pow(v,2)*area*clift;
+>>>>>>> c2c7a628ed83525cab71d89a6ffaba6db7c5709e
 		
 		return forcelift;
 	}
+<<<<<<< HEAD
 	public static double calculateCoefficientDrag(double angle,double vx)
+=======
+	public static double calculateDrag(angle,v)
+>>>>>>> c2c7a628ed83525cab71d89a6ffaba6db7c5709e
 	{
 		double cdrag;
 		
 		cdrag = CD0 + CDalpha*Math.pow((angle-alpha0),2);
+<<<<<<< HEAD
 		
 		return cdrag;
 	}
@@ -76,6 +90,9 @@ public class Frisbee
 		double forcedrag;
 		
 		forcedrag = -0.5*cdrag*rho*area*Math.pow(vx,2);
+=======
+		forcedrag = -0.5*cdrag*rho*area*Math.pow(v,2);
+>>>>>>> c2c7a628ed83525cab71d89a6ffaba6db7c5709e
 		
 		return forcedrag;
 	}
