@@ -40,8 +40,15 @@ public class Frisbee
 		
 		return forcelift;
 	}
-	public static double calculateDrag()
+	public static double calculateDrag(angle,vx)
 	{
+		double cdrag;
+		double forcedrag;
+		
+		cdrag = CD0 + CDalpha*Math.pow((angle-alpha0),2);
+		forcedrag = -0.5*cdrag*rho*area*Math.pow(vx,2);
+		
+		return forcedrag;
 	}
 	public static double goldenSearch()
 	{
@@ -56,5 +63,5 @@ public class Frisbee
 		
 		t = (-
 	
-//salut
+
 	
