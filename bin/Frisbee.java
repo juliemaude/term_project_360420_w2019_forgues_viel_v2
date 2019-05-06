@@ -14,6 +14,7 @@ public class Frisbee
 	public static final double alpha0=-4.;		//angle of attack that produces the least lift(in degree)
 	public static final double Fg=-1.71675;		//force due to gravity corresponds to a mass of 0.175 kg and an acceleration due to gravity of 9.81 m/s^2
 	public static final double g=9.81;			//acceleration due to gravity (m/s^2)
+	public static final double m=0.175; 		//mass of a frisbee (in kg)
 	
 	
 	double a=0;                                 //minimum angle of attack
@@ -31,11 +32,14 @@ public class Frisbee
 	double[] y= new double[imax];				//y-position of the frisbee
 
 	double[] vy=new double[imax];				//velocity in the y-direction
+	double[] vx=new double[imax];
 	
 	x[0]=0.;								//initial position of x in meter 
 
 	y[0]=1.;								//initial position of y in meter
 	y[imax]=0.;								//final position of y in meter
+	
+	
 	
 
 
@@ -111,19 +115,29 @@ public class Frisbee
 	public static double calculateDistance(double angle)
 	{
 		double anglerad= Math.toRadians(angle);
-		double vix = vi*Math.cos(anglerad);
-		double viy = vi*Math.sin(anglerad);
+		double vix[0] = vi*Math.cos(anglerad);
+		double viy[0] = vi*Math.sin(anglerad);
 		double deltay= y[imax] - y[0];
 		double t;
 		
-		t = (-viy + Math.sqrt(Math.pow(viy,2)-4*(0.5*-g)*deltay))/ (2*deltay);
+		double aix = calculateDrag(angle) / m;
+		double aiy = (calculateLift(angle)-calculateDrag(angle))/m;
 		
-		if(t<0)
-		{	
-		t = (-viy - Math.sqrt(Math.pow(viy,2)-4*(0.5*-g)*deltay))/ (2*deltay);
-		}
+		for( int i=1; i> y[imax] ; i--)
+		{
+			y[i] = 
+			t = (-viy + Math.sqrt(Math.pow(viy,2)-4*(0.5*-g)*deltay))/ (2*deltay);
 		
-		xf = vix * t;
+			if(t<0)
+			{	
+			t = (-viy - Math.sqrt(Math.pow(viy,2)-4*(0.5*-g)*deltay))/ (2*deltay);
+			}
+		
+			//calculate the first value with Euler's method
+		
+			x[1] = x[0] + vix
+		
+		
 	
 	}
 
