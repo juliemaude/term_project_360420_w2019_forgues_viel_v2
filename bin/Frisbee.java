@@ -21,13 +21,11 @@ public class Frisbee
 	
 	double[] x= new double[imax];				//x-position of the frisbee
 	double[] y= new double[imax];				//y-position of the frisbee
-	double[] vx= new double[imax];				//velocity in the x-direction
+
 	double[] vy=new double[imax];				//velocity in the y-direction
 	
 	x[0]=0.;								//initial position of x in meter 
-	y[0]=1.;								//initial position of y in meter
-	vx[0]=0.;
-	vy[0]=0.;
+	y[0]=1.;								//initial position of y in meter
 	
 	}
 	public static double calculateLift(angle,vx)
@@ -43,6 +41,18 @@ public class Frisbee
 	public static double calculateDrag()
 	{
 	}
+	public static double goldenSearch()
+	{
+		
+	}
+	public static double calculateDistance(angle)
+	{
+		double anglerad= Math.toRadians(angle);
+		double vix = vi*Math.cos(anglerad);
+		double viy = vi*Math.sin(anglerad);
+		double t;
+		
+		t = (-
 	
 	
 	
