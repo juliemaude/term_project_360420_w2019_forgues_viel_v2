@@ -19,85 +19,70 @@ public class Frisbee
 	
 	
 	
-	double a=0;                                 //minimum angle of attack
-	double c=90; 	                            //maximum angle of attack
-	double b=0.38*(c-a);
-	
+
 	
 	int imax= (int)(Tmax/dt);					//Maximum index
 	
-	double[] x= new double[imax];				//x-position of the frisbee
-	double[] y= new double[imax];				//y-position of the frisbee
+	double x[]= new double[imax];				//x-position of the frisbee
+	double y[]= new double[imax];				//y-position of the frisbee
 
 	double[] vy=new double[imax];				//velocity in the y-direction
 	double[] vx=new double[imax];
 	
-	x[0]=0.;								//initial position of x in meter 
+	
 
-	y[0]=1.;								//initial position of y in meter
-	y[imax]=0.;								//final position of y in meter
-	
-	
 		
 	double vi=14.;								//initial velocity of average throw(m/s)
 	public static void main(String[] args)
 	{	
-		double answer = goldenSearch(a,b,c); 
+		double a=0;                                 //minimum angle of attack
+		double c=90; 	                            //maximum angle of attack
+		double b=0.38*(c-a);
+		
+		
+	
+		StaticMethod answer = new StaticMethod();
+		answer.goldenSearch(a,b,c); 
 		System.out.println(answer);
 
-
 	}
-<<<<<<< HEAD
-	public static double calculateCoefficientLift(double angle,double vx)
-=======
-	public static double calculateLift(double angle,double v)
->>>>>>> c2c7a628ed83525cab71d89a6ffaba6db7c5709e
+
+
+	public double calculateLift(double angle)
 	{
 		double clift;
 		
 		clift = CL0 + CLalpha*angle;
-<<<<<<< HEAD
 		
 		return clift;
 	
 	}
-	public static double calculateLiftForce(double clift, double vx)
+	public double calculateLiftForce(double clift, double vi)
 	{
 		double forcelift;
 		
-		forcelift = 0.5*rho*Math.pow(vx,2)*area*clift;
-=======
-		forcelift = 0.5*rho*Math.pow(v,2)*area*clift;
->>>>>>> c2c7a628ed83525cab71d89a6ffaba6db7c5709e
+		forcelift = 0.5*rho*Math.pow(vi,2)*area*clift;
 		
 		return forcelift;
 	}
-<<<<<<< HEAD
-	public static double calculateCoefficientDrag(double angle,double vx)
-=======
-	public static double calculateDrag(angle,v)
->>>>>>> c2c7a628ed83525cab71d89a6ffaba6db7c5709e
+	public double calculateDrag(double angle)
 	{
 		double cdrag;
 		
 		cdrag = CD0 + CDalpha*Math.pow((angle-alpha0),2);
-<<<<<<< HEAD
 		
 		return cdrag;
 	}
-	public static double calculateDragForce(double cdrag, double vx)
+	public double calculateDragForce(double cdrag, double vi)
 	{
 		double forcedrag;
 		
-		forcedrag = -0.5*cdrag*rho*area*Math.pow(vx,2);
-=======
-		forcedrag = -0.5*cdrag*rho*area*Math.pow(v,2);
->>>>>>> c2c7a628ed83525cab71d89a6ffaba6db7c5709e
+		forcedrag = -0.5*cdrag*rho*area*Math.pow(vi,2);
 		
 		return forcedrag;
 	}
 		
-	public static double goldenSearch(double a,double b,double c)
+	public void goldenSearch(double a,double b,double c)
 	{
 		while (Math.abs(a-c)>(2.*a* 1.11e-16))
 		{
@@ -144,7 +129,7 @@ public class Frisbee
 		return b;
 		
 	}
-	public static double calculateDistance(double angle)
+	public double calculateDistance(double angle)
 	{
 		double anglerad= Math.toRadians(angle);
 		vx[0] = vi*Math.cos(anglerad);
@@ -156,6 +141,11 @@ public class Frisbee
 		
 		double aix = calculateDrag(angle) / m;
 		double aiy = (calculateLift(angle)-calculateDrag(angle))/m;
+		
+		x[0]=0.;								//initial position of x in meter 
+
+		y[0]=1.;								//initial position of y in meter
+		y[imax]=0.;								//final position of y in meter
 		
 		for(int i=1; y[i]> y[imax] ; i++)
 		{
