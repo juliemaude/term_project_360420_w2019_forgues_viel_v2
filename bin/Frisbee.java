@@ -1,9 +1,10 @@
 import java.lang.Math;
 import java.io.*;
 import java.util.Locale;
+//import javax.swing.JFrame;
 //import ptolemy.plot.*;
 
-public class Frisbee
+public class Frisbee 
 {
 	public static final double dt=0.001;		//time in seconds
 	public static final double Tmax= 60.;		//maximum time in seconds
@@ -32,13 +33,18 @@ public class Frisbee
 		double answer = goldenSearch(a,b,c); 
 		System.out.println(answer);
 		
-	/*	Plot plotObj = new Plot (); // Create Plot object
+	/*	int Xmin = 0;
+		double Xmax = calculateDistance(double answer);
+		int Npoint = (int) (Tmax / dt);
+		
+	    Plot plotObj = new Plot (); // Create Plot object
 		plotObj.setTitle ("Distance in y vs Distance in x");
 		plotObj.setXLabel ("Distance in x");
 		plotObj.setYLabel ("Distance in y");
-	// plotObj.setSize (400, 300) ;
-	// plotObj.setXRange(Xmin, Xmax );
-	// plotObj.addPoint(int Set, double x, double y, boolean connect)
+	    plotObj.setSize (640, 640) ;
+		plotObj.setColor(false);
+	    plotObj.setXRange(Xmin, Xmax );
+	    plotObj.addPoint(int Set, double x, double y, boolean connect)
 		double xS tep = (Xmax−Xmin) / Npoint ;
 	// Plotting loop
 		for (double x=Xmin ; x<=Xmax ; x+=xS tep) 
@@ -47,12 +53,22 @@ public class Frisbee
 			plotObj.addPoint (0,x,y,true);
 		}
 		
-    PlotApplication app = new PlotApplication (plotObj) ; // Display 
-	*/
-	}
-
+    PlotApplication app = new PlotApplication (plotObj) ; // Display */
 	
-
+	}
+/*	public graph()
+	{
+		setTitle("Motion of the frisbee");
+		setSize(700,700);
+		setVIsible(true);
+		
+	}
+	public void paint(Graphics g)
+	{
+		for( int i=0; y[i]>  
+		g.drawline(
+	}
+*/
 
 	public static double calculateLift(double angle)
 	{
@@ -135,6 +151,23 @@ public class Frisbee
 		return b;
 		
 	}
+	public static double accelerationX(double angle)
+	{
+		double cdrag = calculateDrag(angle);
+		
+		double aix = calculateDrag(angle) / m;
+		
+		return aix;
+	}
+	public static double accelerationY(double angle)
+	{
+		double clift = calculateLift(angle);
+		
+		double aiy = (calculateLift(angle)-calculateDrag(angle))/m;
+		
+		return aiy;
+	}
+		
 	public static double calculateDistance(double angle)
 	{
 		double anglerad= Math.toRadians(angle);
@@ -157,25 +190,26 @@ public class Frisbee
 		double deltay= yf - y[0];					//final y-position minus initial y position
 		
 		
-		double cdrag = calculateDrag(angle);
-		double clift = calculateLift(angle);
 		
-		double aix = calculateDrag(angle) / m;
-		double aiy = (calculateLift(angle)-calculateDrag(angle))/m;
 		
 		double[] t= new double[imax];
 		double distance=0;
 		
+		//calculate the first value with Euler's method
+			y[1] = y[0] + vy[0]*dt;
+			x[1] = x[0] + vx[0];
+			
+			vx[1] = vx[0] + accelerationX(angle)*dt;
+			vy[1] = vy[0] + accelerationY(angle)*dt;
 		
-		for(int i=1; y[i]> yf ; i++)
+		for(int i=2; y[i]> yf ; i++)
 		{
-			//calculate the first value with Euler's method
-			y[i] = y[i-1] + vy[i-1]*dt;
 			
-			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * cdrag * dt;
-			vy[i] = (g + (1/(2*m))*rho*Math.pow(vx[i-1],2)*area*clift)*dt;
+			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * calculateDrag(angle) * dt;
+			vy[i] = (g + (1/(2*m)))*rho*Math.pow(vx[i-1],2)*area*calculateLift(angle)*dt;
 			
-			
+			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angle)*Math.pow(dt,2);
+			y[i] = 2*y[i-1] - y[i-2] + accelerationY(angle)*Math.pow(dt,2);
 			t[i] = (-vy[i] + Math.sqrt(Math.pow(vy[i],2)-4*(0.5*-g)*deltay))/ (2*deltay);
 		
 			if(t[i]<0)
@@ -183,12 +217,10 @@ public class Frisbee
 			t[i] = (-vy[i] - Math.sqrt(Math.pow(vy[i],2)-4*(0.5*-g)*deltay))/ (2*deltay);
 			}
 		
-			//calculate the first value with Euler's method
-		
-			x[i] = x[i-1] + vx[i-1];
 			distance=x[i];
-		}
 		
+		}
+		System.out.println("distance is: " + distance);
 		return distance;
 	
 	}
