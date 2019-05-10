@@ -1,6 +1,7 @@
 import java.lang.Math;
 import java.io.*;
 import java.util.Locale;
+import ptolemy.plot.*;
 
 public class Frisbee
 {
@@ -44,6 +45,24 @@ public class Frisbee
 	{	
 		double answer = goldenSearch(a,b,c); 
 		System.out.println(answer);
+		
+		Plot plotObj = new Plot (); // Create Plot object
+		plotObj.setTitle ("Distance in y vs Distance in x");
+		plotObj.setXLabel ("Distance in x");
+		plotObj.setYLabel ("Distance in y");
+	// plotObj.setSize (400, 300) ;
+	// plotObj.setXRange(Xmin, Xmax );
+	// plotObj.addPoint(int Set, double x, double y, boolean connect)
+		double xS tep = (Xmax−Xmin) / Npoint ;
+	// Plotting loop
+		for (double x=Xmin ; x<=Xmax ; x+=xS tep) 
+		{
+			double y = Math.sin(x)*Math.sin(x);
+			plotObj.addPoint (0,x,y,true);
+		}
+		
+    PlotApplication app = new PlotApplication (plotObj) ; // Display
+}
 
 
 	}
