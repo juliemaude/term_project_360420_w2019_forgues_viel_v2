@@ -156,16 +156,16 @@ public class Frisbee
         double angleradDrag = Math.toRadians(angle);
         double angleradLift = Math.toRadians(180-90-angle);
         
-        double aix = -Math.cos(angleradDrag)*calculateDragForce(angleradDrag) + Math.cos(angleradLift)*calculateLiftForce(angleradLift);
+        double aix = -Math.cos(angleradDrag)*calculateDragForce(cdrag,vi) + Math.cos(angleradLift)*calculateLiftForce(clift,vi);
 		
 		return aix;
 	}
 	public static double accelerationY(double angle)
 	{
 	    double angleradDrag = Math.toRadians(angle);
-        double angleradLift = Math.toRadians(180-90-angle)
+        double angleradLift = Math.toRadians(180-90-angle);
         
-        double aiy = Math.sin(angleradDrag)*calculateDragForce(angleradDrag) + Math.sin(angleradLift)*calculateLiftForce(angleradLift)-(m*g);
+        double aiy = Math.sin(angleradDrag)*calculateDragForce(cdrag,vi) + Math.sin(angleradLift)*calculateLiftForce(clift,vi)-(m*g);
 		
 		return aiy;
 	}
@@ -189,6 +189,8 @@ public class Frisbee
 		vx[0] = vi*Math.cos(anglerad);
 		vy[0] = vi*Math.sin(anglerad);
 		
+		double angVelini = 0.;
+		
 		double deltay= yf - y[0];					//final y-position minus initial y position
 		
 		double[] ax = new double[imax];
@@ -196,6 +198,9 @@ public class Frisbee
 		
 		ax[0] = accelerationX(angle);
 		ay[0] = accelerationY(angle);
+		
+		double[] angle1 = new double[imax];
+		angle[0]= angle1;
 
 		double distance=0;
 		
@@ -205,11 +210,14 @@ public class Frisbee
 			
 			vx[1] = vx[0] + accelerationX(angle)*dt;
 			vy[1] = vy[0] + accelerationY(angle)*dt;
+			
+			angle1[1] = angle1[0] + angVelini*dt;
 		
 		//update angle, acceleration, velocity, and distance
 		for(int i=2; y[i]> yf ; i++)
 		{
-			angle = ;
+			angle1[i] = 2*angle1[i-1] - angle1[i-2];											//find how to update the angle of the frisbee
+			angle = angle1[i];
 			
 			ax[i]= accelerationX(angle);
 			ay[i]= accelerationY(angle);
@@ -218,7 +226,7 @@ public class Frisbee
 			vy[i] = vy[i-1] + ay[i-1]*dt;
 			
 			x[i] = 2*x[i-1] - x[i-2] + ax[i-1]*Math.pow(dt,2);
-			y[i] = 2*y[i-1] - x[i-2] + ay[i-1]*Math.pow(dt,2);
+			y[i] = 2*y[i-1] - y[i-2] + ay[i-1]*Math.pow(dt,2);
 	
 		distance = x[i];
 		
