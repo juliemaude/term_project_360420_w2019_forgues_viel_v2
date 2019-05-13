@@ -153,18 +153,19 @@ public class Frisbee
 	}
 	public static double accelerationX(double angle)
 	{
-        double angleradDrag= Math.toRadians(angle);
-        double angleradLift= Math.toRadians(180-90-angle);
+        double angleradDrag = Math.toRadians(angle);
+        double angleradLift = Math.toRadians(180-90-angle);
         
-		double aix = -Math.cos(angleradDrag)*calculateDragForce(angleradDrag) + Math.cos(angleradLift)*calculateLiftForce(angleradLift);
+        double aix = -Math.cos(angleradDrag)*calculateDragForce(angleradDrag) + Math.cos(angleradLift)*calculateLiftForce(angleradLift);
 		
 		return aix;
 	}
 	public static double accelerationY(double angle)
 	{
-		double
-		
-		double aiy = (calculateLift(angle)-calculateDrag(angle))/m;
+	    double angleradDrag = Math.toRadians(angle);
+        double angleradLift = Math.toRadians(180-90-angle)
+        
+        double aiy = Math.sin(angleradDrag)*calculateDragForce(angleradDrag) + Math.sin(angleradLift)*calculateLiftForce(angleradLift)-(m*g);
 		
 		return aiy;
 	}
