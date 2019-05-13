@@ -211,8 +211,8 @@ public class Frisbee
 		{
 			angle = ;
 			
-			ax[i]= ;
-			ay[i]= ;
+			ax[i]= accelerationX(angle);
+			ay[i]= accelerationY(angle);
 			
 			vx[i] = vx[i-1] + ax[i-1]*dt;
 			vy[i] = vy[i-1] + ay[i-1]*dt;
