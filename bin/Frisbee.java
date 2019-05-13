@@ -201,7 +201,8 @@ public class Frisbee
 		
 		for(int i=2; y[i]> yf ; i++)
 		{
-			
+			ax[i]=
+			ay[
 			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * calculateDrag(angle) * dt;
 			vy[i] = (g + (1/(2*m)))*rho*Math.pow(vx[i-1],2)*area*calculateLift(angle)*dt;
 			
