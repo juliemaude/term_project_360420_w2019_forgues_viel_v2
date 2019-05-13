@@ -190,6 +190,12 @@ public class Frisbee
 		vy[0] = vi*Math.sin(anglerad);
 		
 		double deltay= yf - y[0];					//final y-position minus initial y position
+		
+		double[] ax = new double[imax];
+		double[] ay = new double[imax];
+		
+		ax[0] = accelerationX(angle);
+		ay[0] = accelerationY(angle);
 
 		double distance=0;
 		
@@ -200,20 +206,21 @@ public class Frisbee
 			vx[1] = vx[0] + accelerationX(angle)*dt;
 			vy[1] = vy[0] + accelerationY(angle)*dt;
 		
+		//update angle, acceleration, velocity, and distance
 		for(int i=2; y[i]> yf ; i++)
 		{
-			angle =
+			angle = ;
 			
-			ax[i]=
-			ay[i]=
+			ax[i]= ;
+			ay[i]= ;
 			
-			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * calculateDrag(angle) * dt;
-			vy[i] = (g + (1/(2*m)))*rho*Math.pow(vx[i-1],2)*area*calculateLift(angle)*dt;
+			vx[i] = vx[i-1] + ax[i-1]*dt;
+			vy[i] = vy[i-1] + ay[i-1]*dt;
 			
-			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angle)*Math.pow(dt,2);
-			y[i] = 2*y[i-1] - y[i-2] + accelerationY(angle)*Math.pow(dt,2);
+			x[i] = 2*x[i-1] - x[i-2] + ax[i-1]*Math.pow(dt,2);
+			y[i] = 2*y[i-1] - x[i-2] + ay[i-1]*Math.pow(dt,2);
 	
-	
+		distance = x[i];
 		
 		}
 		System.out.println("distance is: " + distance);
