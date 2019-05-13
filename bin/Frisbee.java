@@ -189,11 +189,7 @@ public class Frisbee
 		vy[0] = vi*Math.sin(anglerad);
 		
 		double deltay= yf - y[0];					//final y-position minus initial y position
-		
-		
-		
-		
-		double[] t= new double[imax];
+
 		double distance=0;
 		
 		//calculate the first value with Euler's method
@@ -212,13 +208,7 @@ public class Frisbee
 			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angle)*Math.pow(dt,2);
 			y[i] = 2*y[i-1] - y[i-2] + accelerationY(angle)*Math.pow(dt,2);
 			t[i] = (-vy[i] + Math.sqrt(Math.pow(vy[i],2)-4*(0.5*-g)*deltay))/ (2*deltay);
-		
-			if(t[i]<0)
-			{	
-			t[i] = (-vy[i] - Math.sqrt(Math.pow(vy[i],2)-4*(0.5*-g)*deltay))/ (2*deltay);
-			}
-		
-			distance=x[i];
+	
 		
 		}
 		System.out.println("distance is: " + distance);
