@@ -155,7 +155,7 @@ public class Frisbee
 	{
 		double cdrag = calculateDrag(angle);
 		
-		double aix = calculateDrag(angle) / m;
+		double aix = 
 		
 		return aix;
 	}
