@@ -212,8 +212,6 @@ public class Frisbee
 			
 			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * calculateDrag(angle[i]) * dt;
 			vy[i] = (g + (1/(2*m)))*rho*Math.pow(vx[i-1],2)*area*calculateLift(angle[i])*dt;
-			
-			t[i] = (-vy[i] + Math.sqrt(Math.pow(vy[i],2)-4*(0.5*-g)*deltay))/ (2*deltay);
 		
 			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angle[i])*Math.pow(dt,2);
 			y[i] = 2*y[i-1] - y[i-2] + accelerationY(angle[i])*Math.pow(dt,2);
