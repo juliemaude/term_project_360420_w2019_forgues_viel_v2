@@ -143,7 +143,7 @@ public class Frisbee
         double angleradDrag = Math.toRadians(angle);
         double angleradLift = Math.toRadians(180-90-angle);
 		
-		double aix = (Math.cos*angleradDrag)*calculateDragForce(double cdrag, double vi) + Math.cos(angleradLift)*calculateLiftForce(double clift, double vi);
+		double aix = Math.cos(angleradDrag)*calculateDragForce(cdrag, vi) + Math.cos(angleradLift)*calculateLiftForce(clift, vi);
 		
 		
 		return aix;
@@ -153,7 +153,7 @@ public class Frisbee
         double angleradDrag = Math.toRadians(angle);
         double angleradLift = Math.toRadians(180-90-angle);
 		
-		double aiy = Math.sin(angleradDrag)*calculateDragForce(double cdrag, double vi) + Math.sin(angleradLift)*calculateLiftForce(double clift, double vi)-(m*g);
+		double aiy = Math.sin(angleradDrag)*calculateDragForce(cdrag,vi) + Math.sin(angleradLift)*calculateLiftForce(clift,vi)-(m*g);
 		
 		return aiy;
 	}
@@ -166,8 +166,8 @@ public class Frisbee
 	
 		double x[]= new double[imax];				//x-position of the frisbee
 		double y[]= new double[imax];				//y-position of the frisbee
+		
 		x[0]=0.;								    //initial position of x in meter 
-
 		y[0]=1.;								    //initial position of y in meter
 		double yf = 0.;									//final position of y in meter
 
@@ -198,7 +198,7 @@ public class Frisbee
 		
 		for(int i=2; y[i]> yf ; i++)
 		{
-			angle[i] = 
+			angle[i] =  
 			
 			ax[i] = 
 			ay[i] =
