@@ -190,9 +190,6 @@ public class Frisbee
 		double deltay= yf - y[0];					//final y-position minus initial y position
 		
 		
-		
-		
-		double[] t= new double[imax];
 		double distance=0;
 		
 		//calculate the first value with Euler's method
@@ -208,15 +205,11 @@ public class Frisbee
 			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * calculateDrag(angle) * dt;
 			vy[i] = (g + (1/(2*m)))*rho*Math.pow(vx[i-1],2)*area*calculateLift(angle)*dt;
 			
-			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angle)*Math.pow(dt,2);
-			y[i] = 2*y[i-1] - y[i-2] + accelerationY(angle)*Math.pow(dt,2);
 			t[i] = (-vy[i] + Math.sqrt(Math.pow(vy[i],2)-4*(0.5*-g)*deltay))/ (2*deltay);
 		
-			if(t[i]<0)
-			{	
-			t[i] = (-vy[i] - Math.sqrt(Math.pow(vy[i],2)-4*(0.5*-g)*deltay))/ (2*deltay);
-			}
-		
+			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angle)*Math.pow(dt,2);
+			y[i] = 2*y[i-1] - y[i-2] + accelerationY(angle)*Math.pow(dt,2);
+			
 			distance=x[i];
 		
 		}
@@ -224,5 +217,8 @@ public class Frisbee
 		return distance;
 	
 	}
+	
+	//draw diagram of forces, decompoe x and y components of drag and lift to get the accelrations
+	//update with Euler's the angle, angle of attack, acceleration, velocity, and distance
 
 }	
