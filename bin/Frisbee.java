@@ -142,8 +142,8 @@ public class Frisbee
 	{
         double angleradDrag = Math.toRadians(angle);
         double angleradLift = Math.toRadians(180-90-angle);
-        double cdrag; calculateDrag(angle);
-        double clift; calculateLift(angle);
+        double cdrag=calculateDrag(angle);
+        double clift=calculateLift(angle);
 		
 		double aix = Math.cos(angleradDrag)*calculateDragForce(cdrag, vi) + Math.cos(angleradLift)*calculateLiftForce(clift, vi);
 		
@@ -154,8 +154,8 @@ public class Frisbee
     {
         double angleradDrag = Math.toRadians(angle);
         double angleradLift = Math.toRadians(180-90-angle);
-        double cdrag; calculateDrag(angle);
-        double clift; calculateLift(angle);
+        double cdrag=calculateDrag(angle);
+        double clift=calculateLift(angle);
 		
 		double aiy = Math.sin(angleradDrag)*calculateDragForce(cdrag,vi) + Math.sin(angleradLift)*calculateLiftForce(clift,vi)-(m*g);
 		
