@@ -187,6 +187,13 @@ public class Frisbee
 		vx[0] = vi*Math.cos(anglerad);
 		vy[0] = vi*Math.sin(anglerad);
 		
+		double[] ax = new double[imax];
+		double[] ay = new double[imax];
+		
+		ax[0]= accelerationX(angle);
+		ay[0]= accelerationY(angle);
+		
+		
 		double deltay= yf - y[0];					//final y-position minus initial y position
 		
 		
@@ -201,6 +208,10 @@ public class Frisbee
 		
 		for(int i=2; y[i]> yf ; i++)
 		{
+			angle[i] = 
+			
+			ax[i] = 
+			ay[i] =
 			
 			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * calculateDrag(angle) * dt;
 			vy[i] = (g + (1/(2*m)))*rho*Math.pow(vx[i-1],2)*area*calculateLift(angle)*dt;
