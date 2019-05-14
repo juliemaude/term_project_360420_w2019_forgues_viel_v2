@@ -202,19 +202,23 @@ public class Frisbee
 			
 			vx[1] = vx[0] + accelerationX(angle)*dt;
 			vy[1] = vy[0] + accelerationY(angle)*dt;
+			
+			double angleinrad = Math.atan(vy[1]/vx[1]);
+			angleupdate[1] = Math.toDegrees(angleinrad);
 		
 		for(int i=2; y[i]> yf ; i++)
 		{
-			angle[i] =  
+			double angleradian =  Math.atan(vx[i-1]/vy[i-1]);
+			angleupdate[i] = Math.toDegrees(angleradian);
+					
+			ax[i] = accelerationX(angleupdate[i]);
+			ay[i] = accelerationY(angleupdate[i]);
 			
-			ax[i] = accelerationX(angle[i]);
-			ay[i] = accelerationY(angle[i]);
+			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * calculateDrag(angleupdate[i]) * dt;
+			vy[i] = (g + (1/(2*m)))*rho*Math.pow(vx[i-1],2)*area*calculateLift(angleupdate[i])*dt;
 			
-			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * calculateDrag(angle[i]) * dt;
-			vy[i] = (g + (1/(2*m)))*rho*Math.pow(vx[i-1],2)*area*calculateLift(angle[i])*dt;
-		
-			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angle[i])*Math.pow(dt,2);
-			y[i] = 2*y[i-1] - y[i-2] + accelerationY(angle[i])*Math.pow(dt,2);
+			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angleupdate[i])*Math.pow(dt,2);
+			y[i] = 2*y[i-1] - y[i-2] + accelerationY(angleupdate[i])*Math.pow(dt,2);
 			
 			distance=x[i];
 		
