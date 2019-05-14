@@ -1,7 +1,6 @@
 import java.lang.Math;
 import java.io.*;
 import java.util.Locale;
-//import javax.swing.JFrame;
 //import ptolemy.plot.*;
 
 public class Frisbee 
@@ -56,19 +55,7 @@ public class Frisbee
     PlotApplication app = new PlotApplication (plotObj) ; // Display */
 	
 	}
-/*	public graph()
-	{
-		setTitle("Motion of the frisbee");
-		setSize(700,700);
-		setVIsible(true);
-		
-	}
-	public void paint(Graphics g)
-	{
-		for( int i=0; y[i]>  
-		g.drawline(
-	}
-*/
+
 
 	public static double calculateLift(double angle)
 	{
@@ -197,10 +184,10 @@ public class Frisbee
 		ay[0]= accelerationY(angle);
 		
 		
-		double deltay= yf - y[0];					//final y-position minus initial y position
+		double deltay = yf - y[0];					//final y-position minus initial y position
 		
 		
-		double distance=0;
+		double distance = 0;
 		
 		//calculate the first value with Euler's method
 			y[1] = y[0] + vy[0]*dt;
