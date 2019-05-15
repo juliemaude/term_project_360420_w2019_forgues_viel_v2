@@ -34,16 +34,9 @@ public class Frisbeev2
 	System.out.println("the final distance is: " + distancefinal);
 		
 	
-	//	double beta = goldenSearch(a,b,c); 
-	//	System.out.println(beta);
-		
-	/////////////GRAPH/////////////////
+	double betaoptimal = goldenSearch(a,b,c); 
+	System.out.println("the optimal angle of attack is " + betaoptimal);
 	
-		
-	//	XYChart chart = QuickChart.getChart("Distance in x relative to the height of the frisbee","X","Y","y(x)",x,y);
-	//	new SwingWrapper(chart).displayChart();
-		
-		
 	
 	
 	}
@@ -247,8 +240,8 @@ public class Frisbeev2
 			x[i] = (2*x[i-1]) - x[i-2] + accelerationX(angleupdate[i],v1, beta)*Math.pow(dt,2);
 			y[i] = (2*y[i-1]) - y[i-2] + accelerationY(angleupdate[i],v1, beta)*Math.pow(dt,2);
 			
-			//x[i] = x[i-1] + vx[i-1]*dt;
-			//y[i] = y[i-1] + vy[i-1]*dt;
+			x[i] = x[i-1] + vx[i-1]*dt;
+			y[i] = y[i-1] + vy[i-1]*dt;
 			System.out.println("the position in y is: " + y[i] + "the position in x is: " + x[i]);
 			
 			distance=x[i];
