@@ -46,11 +46,12 @@ public class Frisbee
 	}
 
 
-	public static double calculateLift(double angle)
+	public static double calculateLift(double angle, double b)
 	{
 		double clift;
+		double angleattack = b - angle;
 		
-		clift = CL0 + CLalpha*angle;
+		clift = CL0 + CLalpha*angleattack;
 		
 		return clift;
 	
@@ -63,11 +64,12 @@ public class Frisbee
 		
 		return forcelift;
 	}
-	public static double calculateDrag(double angle)
+	public static double calculateDrag(double angle, double b)
 	{
 		double cdrag;
+		double angleattack = b - angle;
 		
-		cdrag = CD0 + CDalpha*Math.pow((angle-alpha0),2);
+		cdrag = CD0 + CDalpha*Math.pow((angleattack-alpha0),2);
 		
 		return cdrag;
 	}
@@ -127,26 +129,26 @@ public class Frisbee
 		return b;
 		
 	}
-	public static double accelerationX(double angle)
+	public static double accelerationX(double angle, double vx[i])
 	{
         double angleradDrag = Math.toRadians(angle);
         double angleradLift = Math.toRadians(180-90-angle);
         double cdrag=calculateDrag(angle);
         double clift=calculateLift(angle);
 		
-		double aix = Math.cos(angleradDrag)*calculateDragForce(cdrag, vi) + Math.cos(angleradLift)*calculateLiftForce(clift, vi);
+		double aix = - Math.cos(angleradDrag)*calculateDragForce(cdrag, vx[i]) + Math.cos(angleradLift)*calculateLiftForce(clift, vx[i]);
 		
 		
 		return aix;
 	}
-	public static double accelerationY(double angle)
+	public static double accelerationY(double angle, double vy[i])
     {
         double angleradDrag = Math.toRadians(angle);
         double angleradLift = Math.toRadians(180-90-angle);
         double cdrag=calculateDrag(angle);
         double clift=calculateLift(angle);
 		
-		double aiy = Math.sin(angleradDrag)*calculateDragForce(cdrag,vi) + Math.sin(angleradLift)*calculateLiftForce(clift,vi)-(m*g);
+		double aiy = - Math.sin(angleradDrag)*calculateDragForce(cdrag,vy[i]) + Math.sin(angleradLift)*calculateLiftForce(clift,vy[i])-(m*g);
 		
 		return aiy;
 	}
@@ -203,8 +205,8 @@ public class Frisbee
 			ax[i] = accelerationX(angleupdate[i]);
 			ay[i] = accelerationY(angleupdate[i]);
 			
-			vx[i] = (1 / (2*m))  * rho * Math.pow(vx[i-1],2) * area * calculateDrag(angleupdate[i]) * dt;
-			vy[i] = (g + (1/(2*m)))*rho*Math.pow(vx[i-1],2)*area*calculateLift(angleupdate[i])*dt;
+			vx[i] = vx[i-1] + ax[i-1]*dt;
+			vy[i] = vy[i-1] + ay[i-1]*dt;
 			
 			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angleupdate[i])*Math.pow(dt,2);
 			y[i] = 2*y[i-1] - y[i-2] + accelerationY(angleupdate[i])*Math.pow(dt,2);
@@ -216,5 +218,9 @@ public class Frisbee
 		return distance;
 	
 	}
+	
+	
+	//change angle input in drag and lift coefficient
+	
 
 }	
