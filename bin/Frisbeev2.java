@@ -1,5 +1,3 @@
-
-
 import java.lang.Math;
 import java.io.*;
 import java.util.Locale;
@@ -7,7 +5,7 @@ import java.util.Locale;
 //import org.knowm.xchart.QuickChart;
 //import org.knowm.xchart.SwingWrapper;
 
-public class Frisbeev2
+public class Frisbee 
 {
 	public static final double dt=0.001;		//time in seconds
 	public static final double Tmax= 60.;		//maximum time in seconds
@@ -28,7 +26,7 @@ public class Frisbeev2
 	
 	
 		double a=0;                                 //minimum angle of attack
-		double c=90; 	                            //maximum angle of attack
+		double c=45; 	                            //maximum angle of attack
 		double b=0.38*(c-a);
 		double beta = b;
 		
@@ -54,7 +52,9 @@ public class Frisbeev2
 	public static double calculateLift(double angle, double beta)
 	{
 		double clift;
-		double angleattack = beta - angle;
+		double betarad =Math.toRadians(beta);
+		double anglerad = Math.toRadians(angle);
+		double angleattack = betarad - anglerad;
 		
 		clift = CL0 + CLalpha*angleattack;
 		
@@ -65,16 +65,19 @@ public class Frisbeev2
 	{
 		double forcelift;
 		
-		forcelift = 0.5*rho*Math.pow(v1,2)*area*clift;
+		forcelift =- 0.5*rho*Math.pow(v1,2)*area*clift;
 		
 		return forcelift;
 	}
 	public static double calculateDrag(double angle, double beta)
 	{
 		double cdrag;
-		double angleattack = beta - angle;
+		double betarad = Math.toRadians(beta);
+		double anglerad = Math.toRadians(angle);
+		double alpha0rad= Math.toRadians(alpha0);
+		double angleattack = betarad - anglerad;
 		
-		cdrag = CD0 + CDalpha*Math.pow((angleattack-alpha0),2);
+		cdrag = CD0 + CDalpha*Math.pow((angleattack-alpha0rad),2);
 		
 		return cdrag;
 	}
@@ -82,7 +85,7 @@ public class Frisbeev2
 	{
 		double forcedrag;
 		
-		forcedrag = -0.5*cdrag*rho*area*Math.pow(v1,2);
+		forcedrag = 0.5*cdrag*rho*area*Math.pow(v1,2);
 		
 		return forcedrag;
 	}
@@ -91,9 +94,9 @@ public class Frisbeev2
 	{
 		while (Math.abs(a-c)>(2.*a* 1.11e-16))
 		{
-			 double ya= calculateDistance(a);
-			 double yb= calculateDistance(b);
-			 double yc= calculateDistance(c);
+			 double ya= -calculateDistance(a);
+			 double yb= -calculateDistance(b);
+			 double yc= -calculateDistance(c);
 			 double d; 
 			
 			
@@ -137,11 +140,16 @@ public class Frisbeev2
 	public static double accelerationX(double angle, double v1, double beta)
 	{
         double angleradDrag = Math.toRadians(angle);
-        double angleradLift = Math.toRadians(180-90-angle);
+        double angleradLift = Math.toRadians(angle);
         double cdrag=calculateDrag(angle, beta);
+        System.out.println("the coefficient of drag is: " + cdrag);
         double clift=calculateLift(angle,beta);
+        System.out.println("the coefficient of lift is: " + clift);
 		
-		double aix = -Math.cos(angleradDrag)*calculateDragForce(cdrag, v1) + Math.cos(angleradLift)*calculateLiftForce(clift, v1);
+		double aix = -Math.cos(angleradDrag)*calculateDragForce(cdrag, v1) - Math.cos(angleradLift)*calculateLiftForce(clift, v1);
+		System.out.println("the acceleration in x is: " + aix);
+		System.out.println("the drag force is: " + calculateDragForce(cdrag,v1));
+		System.out.println("the lift force is: " + calculateLiftForce(clift,v1));
 		
 		
 		return aix;
@@ -149,11 +157,12 @@ public class Frisbeev2
 	public static double accelerationY(double angle, double v1, double beta)
     {
         double angleradDrag = Math.toRadians(angle);
-        double angleradLift = Math.toRadians(180-90-angle);
+        double angleradLift = Math.toRadians(angle);
         double cdrag=calculateDrag(angle,beta);
         double clift=calculateLift(angle,beta);
 		
-		double aiy = - Math.sin(angleradDrag)*calculateDragForce(cdrag,v1) + Math.sin(angleradLift)*calculateLiftForce(clift,v1)-(m*g);
+		double aiy =  Math.sin(angleradDrag)*calculateDragForce(cdrag,v1) + Math.sin(angleradLift)*calculateLiftForce(clift,v1)-(m*g);
+		System.out.println("the acceleration in y is: " + aiy);
 		
 		return aiy;
 	}
@@ -200,7 +209,7 @@ public class Frisbeev2
 		//calculate the first value with Euler's method
 			y[1] = y[0] + vy[0]*dt;
 			x[1] = x[0] + vx[0];
-			System.out.println("the postion at time 1 in x " + x[1] + "the position at time 1 in y " + y[1]);
+	    	System.out.println("the postion at time 1 in x " + x[1] + "the position at time 1 in y " + y[1]);
 			
 			vx[1] = vx[0] + ax[0]*dt;
 			vy[1] = vy[0] + ay[0]*dt;
@@ -230,7 +239,6 @@ public class Frisbeev2
 			vx[i] = vx[i-1] + ax[i-1]*dt;
 			vy[i] = vy[i-1] + ay[i-1]*dt;
 			System.out.println("The updated velocity in x is: " + vx[i] + "the updated velocity in y is: " + vy[i]);
-			
 			v1 = Math.sqrt(Math.pow(vx[i],2)+Math.pow(vy[i],2));
 			
 			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angleupdate[i],v1, beta)*Math.pow(dt,2);
@@ -238,10 +246,11 @@ public class Frisbeev2
 			System.out.println("the position in y is: " + y[i] + "the position in x is: " + x[i]);
 			
 			distance=x[i];
+			i++;
 		
 		}
 		System.out.println("distance is: " + distance);
 		return distance;
 	
 	}
-}	
+}
