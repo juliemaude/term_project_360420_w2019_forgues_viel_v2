@@ -5,7 +5,7 @@ import java.util.Locale;
 //import org.knowm.xchart.QuickChart;
 //import org.knowm.xchart.SwingWrapper;
 
-public class Frisbee 
+public class Frisbeev2 
 {
 	public static final double dt=0.001;		//time in seconds
 	public static final double Tmax= 60.;		//maximum time in seconds
@@ -65,7 +65,7 @@ public class Frisbee
 	{
 		double forcelift;
 		
-		forcelift =- 0.5*rho*Math.pow(v1,2)*area*clift;
+		forcelift =0.5*rho*Math.pow(v1,2)*area*clift;
 		
 		return forcelift;
 	}
@@ -179,6 +179,7 @@ public class Frisbee
 		x[0]=0.;								    //initial position of x in meter 
 		y[0]=1.;								    //initial position of y in meter
 		double yf = 0.;									//final position of y in meter
+		System.out.println(x[0] + "     " + y[0]);
 
 		double[] vy=new double[imax];				//velocity in the y-direction
 		double[] vx=new double[imax];
@@ -239,10 +240,15 @@ public class Frisbee
 			vx[i] = vx[i-1] + ax[i-1]*dt;
 			vy[i] = vy[i-1] + ay[i-1]*dt;
 			System.out.println("The updated velocity in x is: " + vx[i] + "the updated velocity in y is: " + vy[i]);
-			v1 = Math.sqrt(Math.pow(vx[i],2)+Math.pow(vy[i],2));
 			
-			x[i] = 2*x[i-1] - x[i-2] + accelerationX(angleupdate[i],v1, beta)*Math.pow(dt,2);
-			y[i] = 2*y[i-1] - y[i-2] + accelerationY(angleupdate[i],v1, beta)*Math.pow(dt,2);
+			v1 = Math.sqrt(Math.pow(vx[i],2)+Math.pow(vy[i],2));
+			System.out.println("the v1 is: " + v1);
+			
+			x[i] = (2*x[i-1]) - x[i-2] + accelerationX(angleupdate[i],v1, beta)*Math.pow(dt,2);
+			y[i] = (2*y[i-1]) - y[i-2] + accelerationY(angleupdate[i],v1, beta)*Math.pow(dt,2);
+			
+			//x[i] = x[i-1] + vx[i-1]*dt;
+			//y[i] = y[i-1] + vy[i-1]*dt;
 			System.out.println("the position in y is: " + y[i] + "the position in x is: " + x[i]);
 			
 			distance=x[i];
