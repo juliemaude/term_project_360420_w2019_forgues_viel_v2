@@ -1,9 +1,9 @@
 import java.lang.Math;
 import java.io.*;
 import java.util.Locale;
-import org.knowm.xchart.XYChart;
-import org.knowm.xchart.QuickChart;
-import org.knowm.xchart.SwingWrapper;
+//import org.knowm.xchart.XYChart;
+//import org.knowm.xchart.QuickChart;
+//import org.knowm.xchart.SwingWrapper;
 
 public class Frisbee 
 {
@@ -21,7 +21,7 @@ public class Frisbee
 	public static final double m=0.175; 		//mass of a frisbee (in kg)
 	
 	public static final double vi=14.;			//initial velocity of average throw(m/s)
-	public static void main(String[] args)
+	public static void main(String[] args) 
 	{	
 	
 	
@@ -34,7 +34,14 @@ public class Frisbee
 		double answer = goldenSearch(a,b,c); 
 		System.out.println(answer);
 		
-
+	/////////////GRAPH/////////////////
+	
+		
+	//	XYChart chart = QuickChart.getChart("Distance in x relative to the height of the frisbee","X","Y","y(x)",x,y);
+	//	new SwingWrapper(chart).displayChart();
+		
+		
+	
 	
 	}
 
@@ -205,17 +212,9 @@ public class Frisbee
 			distance=x[i];
 		
 		}
-		
-		/////////////GRAPH/////////////////
-		XYChart chart = QuickChart.getChart("Distance in x relative to the height of the frisbee","X","Y","y(x)",x,y);
-		new SwingWrapper(chart).displayChart();
-		
 		System.out.println("distance is: " + distance);
 		return distance;
 	
 	}
-	
-	//draw diagram of forces, decompoe x and y components of drag and lift to get the accelrations
-	//update with Euler's the angle, angle of attack, acceleration, velocity, and distance
 
 }	
