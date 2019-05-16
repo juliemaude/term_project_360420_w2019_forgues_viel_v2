@@ -34,8 +34,8 @@ public class Frisbeev2
 	System.out.println("the final distance is: " + distancefinal);
 		
 	
-	double betaoptimal = goldenSearch(a,b,c); 
-	System.out.println("the optimal angle of attack is " + betaoptimal);
+        //double betaoptimal = goldenSearch(a,b,c); 
+	    //System.out.println("the optimal angle of attack is " + betaoptimal);
 	
 	
 	
@@ -87,16 +87,16 @@ public class Frisbeev2
 	{
 		while (Math.abs(a-c)>(2.*a* 1.11e-16))
 		{
-			 double ya= -calculateDistance(a);
-			 double yb= -calculateDistance(b);
-			 double yc= -calculateDistance(c);
+			 double ya= calculateDistance(a);
+			 double yb= calculateDistance(b);
+			 double yc=calculateDistance(c);
 			 double d; 
 			
 			
 			if ((c-b) < (b-a))
 			{
 				 d = b- 0.38197*(b-a);
-				double yd= calculateDistance(d);
+				double yd= -calculateDistance(d);
 				
 				if (yd<yb)
 				{
@@ -112,7 +112,7 @@ public class Frisbeev2
 			else 
 			{
 			d = b+ 0.38197*(c-b);
-			double yd= calculateDistance(d);
+			double yd= -calculateDistance(d);
         
 				if (yd<yb)
 				{
@@ -127,7 +127,9 @@ public class Frisbeev2
 			}
 			
 		}
+        System.out.println("the angle in degrees is"+ b);
 		return b;
+        
 		
 	}
 	public static double accelerationX(double angle, double v1, double beta)
@@ -250,6 +252,8 @@ public class Frisbeev2
 		}
 		System.out.println("distance is: " + distance);
 		return distance;
+        //System.out.println("value of the x position"+ x[]);
+        //System.out.println("value of the y position"+ y[]);
 	
 	}
 }
