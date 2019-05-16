@@ -8,7 +8,7 @@ import java.util.Locale;
 public class Frisbeev2 
 {
 	public static final double dt=0.001;		//time in seconds
-	public static final double Tmax= 60.;		//maximum time in seconds
+	public static final double Tmax= 100.;		//maximum time in seconds
 	public static final double rho=1.23;		//density of air at sea level in kg per meter cube
 	public static final double area=0.0531;		//Area of the frisbee with a diameter of 0.26 meter in meter square
 	public static final double CL0=0.15;		//y-intercept of the linear function when the angle of attack is 0
@@ -25,8 +25,8 @@ public class Frisbeev2
 	{	
 	
 	
-		double a=0;                                 //minimum angle of attack
-		double c=45; 	                            //maximum angle of attack
+		double a=35;                                 //minimum angle of attack
+		double c=0; 	                            //maximum angle of attack
 		double b=0.38*(c-a);
 		double beta = b;
 		
@@ -125,9 +125,9 @@ public class Frisbeev2
 				}
 				System.out.println(b);
 			}
-			
+		System.out.println("the angle in degrees is"+ b);	
 		}
-        System.out.println("the angle in degrees is"+ b);
+        //System.out.println("the angle in degrees is"+ b);
 		return b;
         
 		
