@@ -26,7 +26,7 @@ public class Frisbeev2
 	
 	
 		double a=0;                                 //minimum angle of attack
-		double c=45; 	                            //maximum angle of attack
+		double c=35; 	                            //maximum angle of attack
 		double b=0.38*(c-a);
 		double beta = b;
 		
