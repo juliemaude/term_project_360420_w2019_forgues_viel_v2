@@ -237,7 +237,7 @@ public class Frisbeev2
 			
 			distance=x[i];
 			//System.out.println("value of the x position"+ x[i]);
-			System.out.println(+ y[i]);
+			System.out.println("value of the y position"+ y[i]);
 			i++;
 		
 		}
