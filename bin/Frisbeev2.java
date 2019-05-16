@@ -34,8 +34,8 @@ public class Frisbeev2
 	System.out.println("the final distance is: " + distancefinal);
 		
 	
-        //double betaoptimal = goldenSearch(a,b,c); 
-	    //System.out.println("the optimal angle of attack is " + betaoptimal);
+    double betaoptimal = goldenSearch(a,b,c); 
+	System.out.println("the optimal angle of attack is " + betaoptimal);
 	
 	
 	
@@ -87,9 +87,9 @@ public class Frisbeev2
 	{
 		while (Math.abs(a-c)>(2.*a* 1.11e-16))
 		{
-			 double ya= calculateDistance(a);
-			 double yb= calculateDistance(b);
-			 double yc=calculateDistance(c);
+			 double ya= -calculateDistance(a);
+			 double yb= -calculateDistance(b);
+			 double yc= -calculateDistance(c);
 			 double d; 
 			
 			
@@ -137,14 +137,14 @@ public class Frisbeev2
         double angleradDrag = Math.toRadians(angle);
         double angleradLift = Math.toRadians(angle);
         double cdrag=calculateDrag(angle, beta);
-        System.out.println("the coefficient of drag is: " + cdrag);
+        //System.out.println("the coefficient of drag is: " + cdrag);
         double clift=calculateLift(angle,beta);
-        System.out.println("the coefficient of lift is: " + clift);
+        //System.out.println("the coefficient of lift is: " + clift);
 		
 		double aix = -Math.cos(angleradDrag)*calculateDragForce(cdrag, v1) - Math.cos(angleradLift)*calculateLiftForce(clift, v1);
-		System.out.println("the acceleration in x is: " + aix);
-		System.out.println("the drag force is: " + calculateDragForce(cdrag,v1));
-		System.out.println("the lift force is: " + calculateLiftForce(clift,v1));
+		//System.out.println("the acceleration in x is: " + aix);
+		//System.out.println("the drag force is: " + calculateDragForce(cdrag,v1));
+		//System.out.println("the lift force is: " + calculateLiftForce(clift,v1));
 		
 		
 		return aix;
@@ -157,7 +157,7 @@ public class Frisbeev2
         double clift=calculateLift(angle,beta);
 		
 		double aiy =  Math.sin(angleradDrag)*calculateDragForce(cdrag,v1) + Math.sin(angleradLift)*calculateLiftForce(clift,v1)-(m*g);
-		System.out.println("the acceleration in y is: " + aiy);
+		//System.out.println("the acceleration in y is: " + aiy);
 		
 		return aiy;
 	}
@@ -181,7 +181,7 @@ public class Frisbeev2
 		
 		vx[0] = vi*Math.cos(anglerad);
 		vy[0] = vi*Math.sin(anglerad);
-		System.out.println("the initial velocity in x" + vx[0] + "the initial velocity in y" + vy[0]);
+		//System.out.println("the initial velocity in x" + vx[0] + "the initial velocity in y" + vy[0]);
 		
 		double v1 = Math.sqrt(Math.pow(vx[0],2)+Math.pow(vy[0],2));
 		
@@ -191,7 +191,7 @@ public class Frisbeev2
 		
 		ax[0]= accelerationX(beta,v1,beta);
 		ay[0]= accelerationY(beta,v1,beta);
-		System.out.println("the initial acceleration in x" + ax[0] + "the initial acceleration in y" + ay[0]);
+		//System.out.println("the initial acceleration in x" + ax[0] + "the initial acceleration in y" + ay[0]);
 		
 		double[] angleupdate = new double[imax];
 		angleupdate[0] = beta ;
@@ -205,21 +205,21 @@ public class Frisbeev2
 		//calculate the first value with Euler's method
 			y[1] = y[0] + vy[0]*dt;
 			x[1] = x[0] + vx[0];
-	    	System.out.println("the postion at time 1 in x " + x[1] + "the position at time 1 in y " + y[1]);
+	    	//System.out.println("the postion at time 1 in x " + x[1] + "the position at time 1 in y " + y[1]);
 			
 			vx[1] = vx[0] + ax[0]*dt;
 			vy[1] = vy[0] + ay[0]*dt;
-			System.out.println("the velocity at time 1 in x " + vx[1] + "the velocity at time 1 in y " + vy[1]);
+			//System.out.println("the velocity at time 1 in x " + vx[1] + "the velocity at time 1 in y " + vy[1]);
 			
 			v1 = Math.sqrt(Math.pow(vx[0],2)+Math.pow(vy[0],2));
 			
 			double angleinrad = Math.atan(vy[1]/vx[1]);
 			angleupdate[1] = Math.toDegrees(angleinrad);
-			System.out.println("The angle of the velocity is: " + angleupdate[1]);
+			//System.out.println("The angle of the velocity is: " + angleupdate[1]);
 			
 			ax[1]= accelerationX(angleupdate[1],v1,beta);
 		    ay[1]= accelerationY(angleupdate[1],v1,beta);
-		    System.out.println("the initial acceleration in x " + ax[1] + "the initial acceleration in y " + ay[1]);
+		    //System.out.println("the initial acceleration in x " + ax[1] + "the initial acceleration in y " + ay[1]);
 			
 		int i=2;	
 		
@@ -230,14 +230,14 @@ public class Frisbeev2
 					
 			ax[i] = accelerationX(angleupdate[i],v1,beta);
 			ay[i] = accelerationY(angleupdate[i],v1,beta);
-			System.out.println("The updated acceleration in x is: " + ax[i] + "The updated acceleration in y is: " + ay[i]);
+			//System.out.println("The updated acceleration in x is: " + ax[i] + "The updated acceleration in y is: " + ay[i]);
 			
 			vx[i] = vx[i-1] + ax[i-1]*dt;
 			vy[i] = vy[i-1] + ay[i-1]*dt;
-			System.out.println("The updated velocity in x is: " + vx[i] + "the updated velocity in y is: " + vy[i]);
+			//System.out.println("The updated velocity in x is: " + vx[i] + "the updated velocity in y is: " + vy[i]);
 			
 			v1 = Math.sqrt(Math.pow(vx[i],2)+Math.pow(vy[i],2));
-			System.out.println("the v1 is: " + v1);
+			//System.out.println("the v1 is: " + v1);
 			
 			x[i] = (2*x[i-1]) - x[i-2] + accelerationX(angleupdate[i],v1, beta)*Math.pow(dt,2);
 			y[i] = (2*y[i-1]) - y[i-2] + accelerationY(angleupdate[i],v1, beta)*Math.pow(dt,2);
@@ -247,13 +247,14 @@ public class Frisbeev2
 			System.out.println("the position in y is: " + y[i] + "the position in x is: " + x[i]);
 			
 			distance=x[i];
+			System.out.println("value of the x position"+ x[i]);
+			System.out.println("value of the y position"+ y[i]);
 			i++;
 		
 		}
 		System.out.println("distance is: " + distance);
 		return distance;
-        //System.out.println("value of the x position"+ x[]);
-        //System.out.println("value of the y position"+ y[]);
+        
 	
 	}
 }
