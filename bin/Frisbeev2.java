@@ -25,8 +25,8 @@ public class Frisbeev2
 	
 
 		double a=0;                                 //minimum angle of attack
-		double c=35; 	                            //maximum angle of attack
-		double b=0.38*(c-a);
+		double c=30; 	                            //maximum angle of attack
+		double b=12;
 		double beta = b;
 		
 	double distancefinal = calculateDistance(beta);
@@ -141,7 +141,7 @@ public class Frisbeev2
         double cdrag=calculateDrag(angle, beta);
         double clift=calculateLift(angle,beta);
 		
-		double aix = -Math.cos(angleradDrag)*calculateDragForce(cdrag, v1) - Math.cos(angleradLift)*calculateLiftForce(clift, v1);
+		double aix = (-Math.cos(angleradDrag)*calculateDragForce(cdrag, v1) - Math.cos(angleradLift)*calculateLiftForce(clift, v1))/m;
 		
 		return aix;
 	}
@@ -154,7 +154,7 @@ public class Frisbeev2
         double cdrag=calculateDrag(angle,beta);
         double clift=calculateLift(angle,beta);
 		
-		double aiy =  Math.sin(angleradDrag)*calculateDragForce(cdrag,v1) + Math.sin(angleradLift)*calculateLiftForce(clift,v1)-(m*g);
+		double aiy =  (Math.sin(angleradDrag)*calculateDragForce(cdrag,v1) + Math.sin(angleradLift)*calculateLiftForce(clift,v1)-(m*g))/m;
 		
 		return aiy;
 	}
@@ -236,7 +236,7 @@ public class Frisbeev2
 			y[i] = y[i-1] + vy[i-1]*dt;
 			
 			distance=x[i];
-			//System.out.println("value of the x position"+ x[i]);
+            System.out.println("value of the x position"+ x[i]);
 			System.out.println("value of the y position"+ y[i]);
 			i++;
 		
